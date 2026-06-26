@@ -12,6 +12,24 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
+            int ScreenWidth = 87;
+            int ScreenHeight = 43;
+
+            // Make the Console 700*700 pixels
+            if (OperatingSystem.IsWindows())
+            {
+                Console.SetWindowSize(ScreenWidth, ScreenHeight);
+
+                // Ensure buffer is larger than or equal to window size
+                Console.BufferWidth = ScreenWidth;
+                Console.BufferHeight = ScreenHeight;
+
+            }
+
+
+
+
+
 
         }
     }

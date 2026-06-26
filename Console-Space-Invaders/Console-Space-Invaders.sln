@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36616.10
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameLogic", "GameLogic\GameLogic.csproj", "{F488F355-9766-4C27-B55D-F6582E449FB7}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleUI", "ConsoleUI\ConsoleUI.csproj", "{32860537-C817-4102-B922-EBF07C168131}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameLogic", "GameLogic\GameLogic.csproj", "{2FE3C297-5D8E-480D-B038-5AB2E4CFF022}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F488F355-9766-4C27-B55D-F6582E449FB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F488F355-9766-4C27-B55D-F6582E449FB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F488F355-9766-4C27-B55D-F6582E449FB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F488F355-9766-4C27-B55D-F6582E449FB7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{32860537-C817-4102-B922-EBF07C168131}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{32860537-C817-4102-B922-EBF07C168131}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32860537-C817-4102-B922-EBF07C168131}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32860537-C817-4102-B922-EBF07C168131}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FE3C297-5D8E-480D-B038-5AB2E4CFF022}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FE3C297-5D8E-480D-B038-5AB2E4CFF022}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FE3C297-5D8E-480D-B038-5AB2E4CFF022}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FE3C297-5D8E-480D-B038-5AB2E4CFF022}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
