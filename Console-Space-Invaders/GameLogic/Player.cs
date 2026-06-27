@@ -8,19 +8,23 @@ namespace GameLogic
 {
     public class Player
     {
-        public double PosX {  get; set; }
-        public double PosY { get; set; }
+        public int PlayerPosX {  get; set; }
+        public int PlayerPosY { get; set; }
 
+        public int PlayerSpeed { get; private set; } = 3;
 
-        public Player(double posX, double posY )
+        public Player(int posX, int posY )
         {
-            PosX = posX;
-            PosY = posY;
+            PlayerPosX = posX;
+            PlayerPosY = posY;
         }
 
-        public void Move(int dirction ) 
+        public void Move(int Direction , int ScreenEdge) 
         {
-            PosX += dirction;
+            if(PlayerPosX + Direction > 0 && PlayerPosX+Direction < ScreenEdge)
+            {
+                PlayerPosX += Direction;
+            } 
         }
     }
 }
