@@ -14,22 +14,29 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
             Console.CursorVisible = false;
-            int ScreenWidth = 93;
+            int ScreenWidth = 93; 
             int ScreenHeight = 43;
             Player Ship = new Player(ScreenWidth / 2, ScreenHeight -2);
-
+            List<Bullet> bullets = new List<Bullet>();
 
             SetScreenSize(ScreenWidth, ScreenHeight);
 
 
             while (true)
             {
+               
+                    foreach (Bullet BU in bullets)
+                    {
+                        BU.MoveBullet( -BU.BulletSpeed); // sets it to minus in order for it to shoot up wards
+                    }
                 
-                DrawScreen(ScreenWidth, ScreenHeight, Ship);
 
+                     DrawScreen(ScreenWidth, ScreenHeight, Ship, bullets);
 
-                if (Console.KeyAvailable)
-                {
+              
+
+                    if (Console.KeyAvailable)
+                    {
                     ConsoleKeyInfo keyInfo = Console.ReadKey(true);
                     if (keyInfo.Key == ConsoleKey.Escape) break;
 
@@ -41,7 +48,11 @@ namespace ConsoleUI
                     {
                         Ship.Move(-Ship.PlayerSpeed, ScreenWidth);
                     }
-                }
+                    if (keyInfo.Key == ConsoleKey.Spacebar)
+                    {
+                        bullets.Add(Ship.PlayerShoot());
+                    }
+                    }
                 Thread.Sleep(33);
             }
 
@@ -62,7 +73,7 @@ namespace ConsoleUI
 
 
         
-        static void DrawScreen(int ScreenWidth, int ScreenHeight, Player Ship)
+        static void DrawScreen(int ScreenWidth, int ScreenHeight, Player Ship, List<Bullet> bullets)
         {
           
             StringBuilder renderBuffer = new StringBuilder(ScreenWidth * ScreenHeight);
@@ -78,11 +89,15 @@ namespace ConsoleUI
                 }
             }
                
-                  
+            foreach (Bullet BU in bullets)
+            {
+                if (BU.BulletPosY > 0)
+                    backBuffer[BU.BulletPosY, BU.BulletPosX] = '|';
+            }      
          
 
             backBuffer[Ship.PlayerPosY, Ship.PlayerPosX] = '#';
-
+          
 
 
 
@@ -106,7 +121,7 @@ namespace ConsoleUI
         static void SetScreenSize(int ScreenWidth, int ScreenHeight)
         {
 
-            // Make the Console 700*700 pixels
+            // Make the Console 700*700 pixels 
             if (OperatingSystem.IsWindows())
             {
                 Console.SetWindowSize(ScreenWidth, ScreenHeight);
