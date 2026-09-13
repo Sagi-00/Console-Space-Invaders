@@ -18,7 +18,7 @@ namespace ConsoleUI
             int ScreenHeight = 43;
             Player Ship = new Player(ScreenWidth / 2, ScreenHeight -2);
             List<Bullet> bullets = new List<Bullet>();
-
+            Alien enemy = new Alien(44, 23);
             SetScreenSize(ScreenWidth, ScreenHeight);
 
 
@@ -27,11 +27,14 @@ namespace ConsoleUI
                
                     foreach (Bullet BU in bullets)
                     {
-                        BU.MoveBullet( -BU.BulletSpeed); // sets it to minus in order for it to shoot up wards
+                        
+                        BU.MoveBullet( -BU.BulletSpeed); // sets it to minus in order for it to shoot upwards 
+                        
                     }
-                
 
-                     DrawScreen(ScreenWidth, ScreenHeight, Ship, bullets);
+
+                   enemy.MoveAlienHorizontally(enemy.AlienSpeed, ScreenWidth); // each frame uses the Alien class  MoveAlienHorizontal method to update the enemy pos
+                DrawScreen(ScreenWidth, ScreenHeight, Ship, bullets, enemy);
 
               
 
@@ -73,7 +76,7 @@ namespace ConsoleUI
 
 
         
-        static void DrawScreen(int ScreenWidth, int ScreenHeight, Player Ship, List<Bullet> bullets)
+        static void DrawScreen(int ScreenWidth, int ScreenHeight, Player Ship, List<Bullet> bullets, Alien enemy)
         {
           
             StringBuilder renderBuffer = new StringBuilder(ScreenWidth * ScreenHeight);
@@ -93,9 +96,9 @@ namespace ConsoleUI
             {
                 if (BU.BulletPosY > 0)
                     backBuffer[BU.BulletPosY, BU.BulletPosX] = '|';
-            }      
-         
+            }
 
+            backBuffer[enemy.AlienPosY,enemy.AlienPosX] = '@';
             backBuffer[Ship.PlayerPosY, Ship.PlayerPosX] = '#';
           
 
