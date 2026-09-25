@@ -10,7 +10,7 @@ namespace GameLogic
     {
         public int BulletPosX { get; set; }
         public int BulletPosY { get; set; }
-
+       
         public int BulletSpeed { get; private set; } = 1;
 
 

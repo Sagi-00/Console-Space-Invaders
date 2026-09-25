@@ -10,7 +10,7 @@ namespace GameLogic
     {
         public int PlayerPosX { get; set; }
         public int PlayerPosY { get; set; }
-
+        
         public int PlayerSpeed { get; private set; } = 3;
 
         public Player(int posX, int posY)
@@ -30,7 +30,9 @@ namespace GameLogic
 
         public Bullet PlayerShoot()
         {
+           
             return new Bullet(PlayerPosX, PlayerPosY);
+            
         }
     }
 }

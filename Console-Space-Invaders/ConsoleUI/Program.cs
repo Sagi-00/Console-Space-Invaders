@@ -16,66 +16,94 @@ namespace ConsoleUI
             Console.CursorVisible = false;
             int ScreenWidth = 93; 
             int ScreenHeight = 43;
+
+            int AlienOriginPosX = 44;
+            int AlienOriginPosY = 23;
+
+
             Player Ship = new Player(ScreenWidth / 2, ScreenHeight -2);
             List<Bullet> bullets = new List<Bullet>();
-            Alien enemy = new Alien(44, 23);
+            Alien enemy = new Alien(AlienOriginPosX, AlienOriginPosY);
             SetScreenSize(ScreenWidth, ScreenHeight);
 
 
             while (true)
             {
-               
-                    foreach (Bullet BU in bullets)
-                    {
-                        
-                        BU.MoveBullet( -BU.BulletSpeed); // sets it to minus in order for it to shoot upwards 
-                        
-                    }
+                // UpDate method 
+                UpDate(ScreenWidth, bullets, enemy);
 
-
-                   enemy.MoveAlienHorizontally(enemy.AlienSpeed, ScreenWidth); // each frame uses the Alien class  MoveAlienHorizontal method to update the enemy pos
                 DrawScreen(ScreenWidth, ScreenHeight, Ship, bullets, enemy);
 
-              
 
-                    if (Console.KeyAvailable)
-                    {
-                    ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-                    if (keyInfo.Key == ConsoleKey.Escape) break;
-
-                    if (keyInfo.Key == ConsoleKey.RightArrow)
-                    {
-                        Ship.Move(Ship.PlayerSpeed, ScreenWidth);
-                    }
-                    if (keyInfo.Key == ConsoleKey.LeftArrow)
-                    {
-                        Ship.Move(-Ship.PlayerSpeed, ScreenWidth);
-                    }
-                    if (keyInfo.Key == ConsoleKey.Spacebar)
-                    {
-                        bullets.Add(Ship.PlayerShoot());
-                    }
-                    }
+                //  inputs method 
+                bool flowControl = NewMethod(ScreenWidth, Ship, bullets);
+                if (!flowControl)
+                {
+                    break;
+                }
                 Thread.Sleep(33);
             }
 
-         }
-            
-               
+        }
+
+        private static bool NewMethod(int ScreenWidth, Player Ship, List<Bullet> bullets)
+        {
+            if (Console.KeyAvailable)
+            {
+                ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+                if (keyInfo.Key == ConsoleKey.Escape) return false;
+
+                if (keyInfo.Key == ConsoleKey.RightArrow)
+                {
+                    Ship.Move(Ship.PlayerSpeed, ScreenWidth);
+                }
+                if (keyInfo.Key == ConsoleKey.LeftArrow)
+                {
+                    Ship.Move(-Ship.PlayerSpeed, ScreenWidth);
+                }
+                if (keyInfo.Key == ConsoleKey.Spacebar)
+                {
+                    bullets.Add(Ship.PlayerShoot());
+
+                }
+            }
+
+            return true;
+        }
+
+        private static void UpDate(int ScreenWidth, List<Bullet> bullets, Alien enemy)
+        {
+            foreach (Bullet BU in bullets)
+            {
+
+                BU.MoveBullet(-BU.BulletSpeed); // sets it to minus in order for it to shoot upwards 
+
+                if (BU.BulletPosY == enemy.AlienPosY && BU.BulletPosX == enemy.AlienPosX) // basic coalitions detection 
+                {
+                    enemy.IsAlienAlive = false;
+                }
+            }
+
+            if (enemy.IsAlienAlive) // turn it later into a foreach when the alien list is crated 
+            {
+                enemy.MoveAlienHorizontally(enemy.AlienSpeed, ScreenWidth); // each frame uses the Alien class  MoveAlienHorizontal method to update the enemy pos
+            }
+        }
 
 
 
 
 
 
-            
 
 
 
 
 
 
-        
+
+
+
         static void DrawScreen(int ScreenWidth, int ScreenHeight, Player Ship, List<Bullet> bullets, Alien enemy)
         {
           
@@ -96,9 +124,10 @@ namespace ConsoleUI
             {
                 if (BU.BulletPosY > 0)
                     backBuffer[BU.BulletPosY, BU.BulletPosX] = '|';
+               
             }
 
-            backBuffer[enemy.AlienPosY,enemy.AlienPosX] = '@';
+           if(enemy.IsAlienAlive) backBuffer[enemy.AlienPosY,enemy.AlienPosX] = '@';
             backBuffer[Ship.PlayerPosY, Ship.PlayerPosX] = '#';
           
 
