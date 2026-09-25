@@ -35,50 +35,39 @@ namespace ConsoleUI
                 DrawScreen(ScreenWidth, ScreenHeight, Ship, bullets, enemy);
 
 
-                //  inputs method 
-                bool flowControl = NewMethod(ScreenWidth, Ship, bullets);
-                if (!flowControl)
+                //  inputs method (later) 
+                if (Console.KeyAvailable)
                 {
-                    break;
+                    ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+                    if (keyInfo.Key == ConsoleKey.Escape) break;
+
+                    if (keyInfo.Key == ConsoleKey.RightArrow)
+                    {
+                        Ship.Move(Ship.PlayerSpeed, ScreenWidth);
+                    }
+                    if (keyInfo.Key == ConsoleKey.LeftArrow)
+                    {
+                        Ship.Move(-Ship.PlayerSpeed, ScreenWidth);
+                    }
+                    if (keyInfo.Key == ConsoleKey.Spacebar)
+                    {
+                        bullets.Add(Ship.PlayerShoot());
+
+                    }
                 }
                 Thread.Sleep(33);
             }
 
         }
 
-        private static bool NewMethod(int ScreenWidth, Player Ship, List<Bullet> bullets)
-        {
-            if (Console.KeyAvailable)
-            {
-                ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-                if (keyInfo.Key == ConsoleKey.Escape) return false;
-
-                if (keyInfo.Key == ConsoleKey.RightArrow)
-                {
-                    Ship.Move(Ship.PlayerSpeed, ScreenWidth);
-                }
-                if (keyInfo.Key == ConsoleKey.LeftArrow)
-                {
-                    Ship.Move(-Ship.PlayerSpeed, ScreenWidth);
-                }
-                if (keyInfo.Key == ConsoleKey.Spacebar)
-                {
-                    bullets.Add(Ship.PlayerShoot());
-
-                }
-            }
-
-            return true;
-        }
-
-        private static void UpDate(int ScreenWidth, List<Bullet> bullets, Alien enemy)
+         static void UpDate(int ScreenWidth, List<Bullet> bullets, Alien enemy)
         {
             foreach (Bullet BU in bullets)
             {
 
                 BU.MoveBullet(-BU.BulletSpeed); // sets it to minus in order for it to shoot upwards 
 
-                if (BU.BulletPosY == enemy.AlienPosY && BU.BulletPosX == enemy.AlienPosX) // basic coalitions detection 
+                if (BU.BulletPosY == enemy.AlienPosY && BU.BulletPosX == enemy.AlienPosX) // basic collision detection 
                 {
                     enemy.IsAlienAlive = false;
                 }
